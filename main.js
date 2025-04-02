@@ -6,26 +6,43 @@ const user = {
   url: localStorage.getItem("imgUrl"),
 };
 
-for (let i = 0; i < localStorage.length; i++) {
-  let key = localStorage.key(i);
-  console.log(`${localStorage.getItem(key)}`);
+// CREAR OBJETO USUARIO EN LOCAL STORAGE
+localStorage.setItem("user", JSON.stringify(user));
+
+const userObj = JSON.parse(localStorage.getItem("user"));
+//CREAR OBJETO BOTON
+const sendButton = document.getElementById("sendButton");
+//CREAR EVENTO AL CLICKAR EL BOTON
+sendButton.addEventListener("click", onSubmit);
+
+//FUNCION PARA QUE NO SE RECARGUE LA PAGINA AL HACER CLICK
+// EN EL BOTON ENVIAR
+function onSubmit(event) {
+  event.preventDefault();
 }
 
-localStorage.setItem(
-  "user",
-  JSON.stringify({
-    name: "dsad",
-    email: "dskalda@sjks",
-    message: "dkaldnklandakldna",
-    url: "https://es.onlyfresh.com/cdn/shop/articles/shutterstock_2297469261.jpg?v=1699021263",
-  })
-);
+//FUNCION PARA QUE SE MUESTREN LOS DATOS EN LA CONSOLA
+for (let i=0; i<localStorage.length; i++){
+  const key = localStorage.key(i);
+  console.log(`${key}: ${localStorage.getItem(key)}`);
+}
 
-const user = JSON.parse(localStorage.getItem("user"));
-// sendButton.addEventListener("click", onSubmit);
+//EXTRA EXTRA EXTRA
+const clearButton = document.getElementById("clearButton");
+const savedUsers = JSON.parse(localStorage.getItem("users")) || [];
+savedUsers.push(userObj);
+localStorage.setItem("users", JSON.stringify(savedUsers));
 
-// const sendButton = document.getElementById("sendButton");
+console.log("Usuarios guardados:");
+savedUsers.forEach((user, index) => {
+  console.log(`Usuario ${index + 1}:`, user);
+});
 
-// function onSubmit(event) {
-//   event.preventDefault();
-// }
+// clearButton?.addEventListener("click", () => {
+//   localStorage.removeItem("users");
+//   console.log("Usuarios eliminados del localStorage.");
+// });
+
+// const data = JSON.parse(localStorage.getItem("user"));
+// console.log(data);
+document.addEventListener("DOMContentLoaded", savedUsers);
